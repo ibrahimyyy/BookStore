@@ -1,0 +1,75 @@
+﻿@model train.Models.Book;
+@{
+    ViewData["Title"] = "GetBookId";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1 class="p-2">Book details</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">                    
+                    <div class="carousel-item active">
+                        <img src="~/images/20191219170611-GettyImages-1152794789.jpeg" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">                        
+                        <img src="~/images/98b784d2d48fcdf0125d381510ea5360.jpg" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="~/images/top-10-books-every-college-student-read-1024x640.jpeg" class="d-block w-100" alt="...">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12 ">
+                    <h1> @Model.Title</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-primary">
+                    <span class="text-monospace">By: @Model.Author</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <p>
+                        @Model.Description
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <button class=" btn btn-primary">
+                        Read now
+                    </button>
+                    <hr />
+                </div>
+
+            </div>
+            <ul>
+                <li class="list-group-item"><span class="font-weight-bold">Categort - </span> @Model.Category </li>
+                <li class="list-group-item"><span class="font-weight-bold">Total Pages - </span> @Model.TotalPages </li>
+                <li class="list-group-item"><span class="font-weight-bold">Language - </span> @Model.Languech </li>
+            </ul>
+            
+
+        </div>
+    </div>
+
+</div>
+

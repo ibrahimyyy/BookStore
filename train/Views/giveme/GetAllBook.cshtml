@@ -1,0 +1,27 @@
+﻿@using train.Models;
+@model IEnumerable<Book>
+@{
+    Layout="_Layout";
+    ViewData["Title"] = "GetAllBook";
+
+}
+
+<div class="container">
+    <h3 class="display-4"> All Books </h3>
+    <div class="row">
+       @foreach (var b in Model)
+        {
+        <div class="col-md-4 ">
+            <div class=" card mb-4 shadow-sm">
+                <img class="card-img-top" src="#" >
+                <div class="card-body">
+                    <h5 class="card-title">@b.Title</h5>       
+                    <p> @b.Description</p>
+                    <a href="/giveme/GetBookId/@b.Id" class="btn btn-primary"> Click Here </a>
+                    <small class="text-muted float-right">Author: @b.Author</small>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>

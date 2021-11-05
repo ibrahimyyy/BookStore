@@ -1,0 +1,39 @@
+﻿@model UserRoleModel
+@{
+    ViewData["Title"] = "ManageUserRoles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Manage user role</h1>
+
+<form method="post" >
+    <div class="card mt-4">
+        <div class="card-header">
+            <h2>@Model.Email</h2>
+            Add/Remove Roles
+        </div>
+        <div class="card-body">
+            <input type="hidden" asp-for="UserId" />
+            @for (int i = 0; i < Model.OldRoles.Count(); i++)
+            {
+                <input type="hidden" asp-for="@Model.OldRoles[i]" />
+            }
+            @for (int i = 0; i < Model.AllRoles.Count(); i++)
+            {
+                <div class="form-check m-1">                    
+                    <input type="hidden" asp-for="@Model.AllRoles[i].RoleName" />
+                    <input type="hidden" asp-for="@Model.SelectedRoles[i].Key" />
+                    <input asp-for="@Model.SelectedRoles[i].Value" class="form-check-input" />
+                    <label class="form-check-label" asp-for="@Model.SelectedRoles[i].Value">
+                        @Model.AllRoles[i].RoleName
+                    </label>
+                </div>
+            }
+            <div asp-validation-summary="All" class="text-danger"></div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a asp-controller="AccountC" asp-action="AllUserInfo" class="btn btn-secondary">Cancel</a>
+        </div>
+    </div>
+</form>

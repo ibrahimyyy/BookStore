@@ -1,0 +1,41 @@
+﻿@model IEnumerable<RoleinfoModel>
+
+@{
+    ViewData["Title"] = "ShowRoles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int x = 1;
+}
+
+<h1>Show roles</h1>
+
+<div>
+    <h1 class=" my-2 text-center">All roles:</h1>
+    <hr class=" w-25  mr-auto ml-auto " />
+    <table class="table table table-striped ">
+        <thead class="text-muted">
+            <tr>
+                <th scope="col" class="text-center">#</th>
+                <th scope="col" class="text-center">Name</th>
+                <th scope="col" class="text-center">Operation</th>
+            </tr>
+        </thead>
+        <tbody class="mt-4">
+            @foreach (var wo in Model)
+            {
+                <tr>
+                    <th scope="row">@x </th>
+                    <td class="text-center">@wo.RoleName</td>
+                    <td>
+                        <form method="post" class="text-center">                            
+                            <a class="btn btn-outline-secondary mx-1" asp-controller="AccountC" asp-action="EditeRoles" asp-route-roleid="@wo.RoleId">Edite</a>
+                            <a class="btn btn-danger mx-1" asp-controller="AccountC" asp-action="DeleteRole" asp-route-roleid="@wo.RoleId">Delete</a>
+                        </form>
+                    </td>
+                </tr>
+                x++;
+            }
+        </tbody>
+    </table>
+    <a asp-action="AddRoles" asp-controller="AccountC" type="submit" class="btn btn-outline-success py-2 px-3"> Add new role </a>
+    @*<a asp-controller="Home" asp-action="Index" type="submit" class="btn btn-primary py-2 px-3"> Back to home </a>*@
+</div>

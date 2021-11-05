@@ -1,0 +1,106 @@
+﻿@using BookShop.Models;
+@model BookModel;
+@{
+    ViewData["Title"] = Model.Name + " Book";
+}
+<h1 class="p-2">Book details</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    @for (int i = 0; i < Model.Gallery.Count(); i++)
+                    {
+                        <li data-target="#carouselExampleIndicators" data-slide-to="@i" class=" @(i==0 ? "active" : "") "></li>
+                    }
+                </ol>
+                <div class="carousel-inner">
+                    @for (int i = 0; i < Model.Gallery.Count(); i++)
+                    {
+                        <div class=" @(i==0 ? "carousel-item active" : "carousel-item") ">
+                            <img class="d-block w-100" src="@Model.Gallery[i].URL" alt="@Model.Gallery[i].Name">
+                        </div>
+                    }
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12 ml-5">
+                    <h1> @Model.Title</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-primary ml-5">
+                    <span class="text-monospace">By: @Model.Author</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 ml-5">
+                    <p>
+                        @Model.Description
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 ml-5">
+                    @if (Model?.RoleName != null)
+                    {
+                        <a class=" btn btn-outline-primary" data-toggle="modal" data-target="#examplemodal">
+                            @*if i want to show every thing in one page and the book will show like a Pop-up i should to use "modal" from BootStrap i used it🤞*@
+                            Read now
+                        </a>
+                    @for (int i = 0; i < Model.RoleName.Count() ; i++)
+                        {
+
+                            if (Model?.RoleName.ElementAt(i) == "SuperAdmin" || Model?.RoleName.ElementAt(i) == "Admin")
+                            {
+                                <a class=" btn btn-danger" asp-controller="BookC" asp-action="Delete_Book" asp-route-BookID="@Model.Id">
+                                    Delete
+                                </a>
+                                break;
+                            }
+                    }
+                    }
+                </div>
+            </div>
+            <hr />
+            <ul>
+                <li class="list-group-item"><span class="font-weight-bold">Categort - </span> @Model.Category </li>
+                <li class="list-group-item"><span class="font-weight-bold">Total Pages - </span> @Model.TotalPages </li>
+                <li class="list-group-item"><span class="font-weight-bold">Language - </span> @Model.Language </li>
+            </ul>
+        </div>
+    </div>
+    <div class="modal fade" id="examplemodal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">                    
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <iframe src="@Model.BookPdfURL" width="760" height="650"></iframe>
+                </div>
+                <div class="modal-footer">
+                    <a type="button" class="btn btn-primary" href="@Model.BookPdfURL" target="_blank">Show the book</a>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="container bg-light">
+
+    </div>
+</div>
+

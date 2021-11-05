@@ -1,0 +1,41 @@
+﻿@using BookShop.Models;
+@model IEnumerable<BookModel>
+@{
+    ViewData["Title"] = "All Books";
+    
+}
+<div class="container">
+    <form method="post" class="row p-3">
+             <input class="form-control col-lg-6 col-md-5 mx-2 "asp-for="@Model.ElementAt(Model.Count()-1).Title" type="search" placeholder="Search" aria-label="Search" value="" />
+             <button class=" btn btn-outline-dark" type="submit" asp-controller="BookC" asp-action="GetAllBooks">Search</button>
+    </form>
+</div>
+<div class="container">
+    @if (ViewBag.search == false)
+    {
+        <p class="display-4 font-weight-bold">All Books</p>
+    }
+    else
+    {
+        <p class="display-4 font-weight-bold">Search result</p>
+    }
+
+    <div class="row">
+        @if (Model != null && ViewBag.none == false)
+        {
+            foreach (var b in Model)
+            {
+                <div class="col-md-4 ">
+                    <partial name="_ShowingBook" model="@b" />
+                    @*@Html.Partial("_ShowingBook", @b)*@
+                    @*@await Html.PartialAsync("_ShowingBook", @b)*@
+                    @*i can use any one of them , the first one is the recommanded one.*@
+                </div>
+            }
+        }
+        else
+        {
+            <h4 class="text-xl-center text-danger ml-5">Sorry there is no result.</h4>
+        }
+    </div>
+</div>

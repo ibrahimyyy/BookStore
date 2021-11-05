@@ -1,0 +1,109 @@
+﻿@using BookShop.Models;
+@using BookShop.Repository;
+@inject ILanguageRepository _langugaeRepo
+@model BookModel;
+@{
+    ViewData["Title"] = "Add Book";
+    string selectedval = "English";
+}
+@*asp-for it's working like model.,,,,*@
+@*the form it has 4 method (delete) it's mean to delete somethings, and (post) it's mean to add somethings, and (get) it's mean to get some information, and (put) it's mean to update some information*@
+<div class="container">
+    <h3 class="display-4">Add new book </h3>
+    <hr />
+    @if (ViewBag.IsSuccess == true)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Added success</strong> You should check in DB. <br />
+            Click <a asp-controller="BookC" asp-action="GetBookId" asp-route-id="@ViewBag.BookId">here</a> to see details.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status" id="MyLoader" style="display:none;">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    @*data-ajax-... are JS code they are good for dynamic interface , but i'm not using them*@
+<form method="post" enctype="multipart/form-data" asp-action="Add_Book" asp-controller="BookC">
+    @*if i'm using file(Image) in my form so i should to use 'enctype' attribute*@
+    <div class="form-group">
+        <label asp-for="LanguageId"> </label> @*select it's mean i make the input like a dropdown and the user can choose wt he want and the chooses it's getting from <option>example</option> , selected it's mean the default input , value it's mean that's wt will save in my database *@
+        <select asp-for="LanguageId" class="form-control" asp-items="(await _langugaeRepo.GetAllLanguages()).Select(x=> new SelectListItem(){Text=x.Name , Value=x.Id.ToString()})"> @*here i'm using DI in view*@
+            @*the first parameter of SelectList(i made it on controller) is the List of string and the second parameter is the default value will appera, see the defination for more info*@ @*in select row i can use tag his name is 'multiple' it's mean i can choose many things from dropdown menu BUT i should to make a list to recive all this item*@
+            <option value="">Please Enter language of your book</option>
+            @*<option value="French">French(Second language)</option>
+                <option value="English" selected>English(Global language)</option>
+                <option value="Hindi">Hindi</option>
+                <option value="Dutch">Dutch</option>
+                <option value="Italian">Italian</option>*@
+            @*or i can use asp-items innested of <option> and i can use them poth togather*@
+        </select>
+        <span asp-validation-for="LanguageId" class="text-danger"></span>  @*when the ModelState.IsVaild in Controller is false then this row will tell u what is wrong to fix it by default or u can put custom error message from [Required(ErrorMessage="wt i wnt to say about error")]*@
+    </div>
+    <div class="form-group">
+        <label asp-for="Title"> </label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>  @*when the ModelState.IsVaild in Controller is false then this row will tell u what is wrong to fix it by default or u can put custom error message from [Required(ErrorMessage="wt i wnt to say about error")]*@
+    </div>
+    <div class="form-group">
+        <label asp-for="Name"> </label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"> </label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Author"> </label>
+        <input asp-for="Author" class="form-control" />
+        <span asp-validation-for="Author" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="TotalPages"> </label>
+        <input asp-for="TotalPages" class="form-control" />
+        <span asp-validation-for="TotalPages" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PhotoCover"> </label>
+        @*<input asp-for="TotalPages" class="form-control" />*@ @*we will not using this *@
+        <div class="custom-file">
+            <input asp-for="PhotoCover" class="custom-file-input" id="customFile">
+            <label class="custom-file-label" for="customFile">Choose file</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="GalleryFiles"> </label>
+        <div class="custom-file">
+            <input asp-for="GalleryFiles" class="custom-file-input" id="customFile">
+            <label class="custom-file-label" for="customFile">Choose file</label>
+        </div>
+        <span asp-validation-for="GalleryFiles" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="BookPdf"> </label>
+        <div class="custom-file">
+            <input asp-for="BookPdf" class="custom-file-input" id="customFile">
+            <label class="custom-file-label" for="customFile">Choose file</label>
+        </div>
+        <span asp-validation-for="BookPdf" class="text-danger"></span>
+    </div>
+    <div>
+        <input type="submit" value="Add Book" class="btn btn-dark" />
+    </div>
+</form>
+
+</div>
+@*@section Scripts {
+<script>
+    function mySuccess(data) {
+        alert("I am from success");
+        console.log(data);
+    }
+</script>
+}*@

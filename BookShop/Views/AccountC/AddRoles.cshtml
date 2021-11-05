@@ -1,0 +1,32 @@
+﻿@model BookShop.Models.AddRolesModel
+
+@{
+    ViewData["Title"] = "AddRoles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h1>Add roles</h1>
+    <hr />
+        @if(ViewBag.IsSuccess == true)
+            {
+                <div class="text-success">
+                    <p>Added has been complete.</p>
+                </div>
+            }
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="AddRoles">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="RoleName" class="control-label"></label>
+                    <input asp-for="RoleName" class="form-control" />
+                    <span asp-validation-for="RoleName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Add" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

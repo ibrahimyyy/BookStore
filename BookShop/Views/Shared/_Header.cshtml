@@ -1,0 +1,41 @@
+﻿@using Microsoft.Extensions.Configuration
+@inject IConfiguration _configuration
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+            @*this row it's like herf="/Home/Index"*@
+            <img src="~/Images/114-1145783_transparent-book-vector-png-book-icon-vector-png.png" width="30" height="30" asp-append-version="true" />@_configuration["AppName"] @*asp-append-version it's mean when i  refresh browser the photo can be change and upload from the begin then go to cach browser*@
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" asp-controller="BookC" asp-action="GetAllBooks">All Book <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Dropdown
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">                        
+                        @*<a class="dropdown-item" asp-controller="AccountC" asp-action="AddRoles">Add roles</a>*@
+                        <a class="dropdown-item" asp-controller="AccountC" asp-action="AllUserInfo" >All users</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" asp-controller="AccountC" asp-action="ShowRoles">Show roles</a>
+                    </div>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/BookC/Add_Book">Add New Book <span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+            
+
+            <div> <partial name="_LoginInfo" /> </div>
+        </div>
+    </nav>
+</header>

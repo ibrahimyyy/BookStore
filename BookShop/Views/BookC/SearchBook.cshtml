@@ -1,0 +1,27 @@
+﻿@using BookShop.Models;
+@model IEnumerable<BookModel>
+@{
+    ViewData["Title"] = "Search Books";
+}
+<div class="container">
+    <form method="post" class="row p-3">
+        <input class="form-control col-lg-6 col-md-5 mx-2 " asp-for="@Model.ElementAt(Model.Count()-1).Title" type="search" placeholder="Search" aria-label="Search" value="" />
+        <button class=" btn btn-outline-dark" type="submit" asp-controller="BookC" asp-action="SearchBook">Search</button>
+    </form>
+    <h4 class="display-4 font-weight-bold"> Search result </h4>
+    <div class="row">
+        @if (Model != null)
+        {
+            foreach (var b in Model)
+            {
+                <div class="col-md-4 ">
+                    <partial name="_ShowingBook" model="@b" />
+                </div>
+            }
+        }
+        else
+        {
+            <h5 class="text-xl-center text-danger">Sorry there is no result.</h5>
+        }
+    </div>
+</div>

@@ -1,0 +1,63 @@
+﻿@model IEnumerable<AllUsersInfo>
+@{
+    ViewData["Title"] = "AllUserInfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int x = 1;
+}
+
+<div class="container">
+    <form method="post" class="row p-3">
+        <input class="form-control col-lg-6 col-md-5 mx-2 " asp-for="@Model.ElementAt(Model.Count()-1).Email" type="search" placeholder="Search" aria-label="Search" value="" />
+        <button class=" btn btn-outline-dark" type="submit" asp-controller="AccountC" asp-action="AllUserInfo">Search</button>
+    </form>
+</div>
+<div>
+    @if (ViewBag.search == false)
+    {
+        <h1 class=" my-2 text-center">All users:</h1>
+    }
+    else
+    {
+        <h1 class=" my-2 text-center">Search result:</h1>
+    }
+
+    <hr class=" w-25  mr-auto ml-auto " />
+    @if (Model != null && ViewBag.none == false)
+    {
+        <table class="table table table-striped ">
+            <thead class="text-muted">
+                <tr>
+                    <th scope="col" class="text-center">#</th>
+                    <th scope="col" class="text-center">First Name</th>
+                    <th scope="col" class="text-center">Last Name</th>
+                    <th scope="col" class="text-center">Email</th>
+                    <th scope="col" class="text-center">Operation</th>
+                </tr>
+            </thead>
+            <tbody class="mt-4">
+                @for (int u = 0; u < Model.Count(); u++)
+                {
+                    <tr>
+                        <th scope="row">@x </th>
+                        <td class="text-center">@Model.ElementAt(u).FirstName</td>
+                        <td class="text-center">@Model.ElementAt(u).LastName</td>
+                        <td class="text-center">@Model.ElementAt(u).Email</td>
+                        <td>
+                            <form method="post" class="text-center">
+                                <a class="btn btn-outline-warning mx-1" asp-controller="AccountC" asp-action="ManageUserRoles" asp-route-userid="@Model.ElementAt(u).UserId">Manage roles</a>
+                                <a class="btn btn-danger mx-1" asp-controller="AccountC" asp-action="DeleteAccount" asp-route-userid="@Model.ElementAt(u).UserId">Delete</a>
+                            </form>
+                        </td>
+                    </tr>
+                    x++;
+                }
+            </tbody>
+        </table>
+
+    }
+    else
+    {
+        <h4 class="text-xl-center text-danger mr-2">Sorry there is no result.</h4>
+    }
+</div>
+

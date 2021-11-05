@@ -1,0 +1,91 @@
+﻿@model BookShop.Models.LogInModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>LogIn</title>
+    <environment include="Development">
+        <link href="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
+    </environment>
+    @*asp-fallback it's mean if the given link not work so the another one (asp-fallback-href) will work and don't miss the three lines with asp-fallback-...*@
+    <environment exclude="Development">
+        @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only"
+              asp-fallback-test-property="position"
+              asp-fallback-test-value="absolute"
+              rel="stylesheet" integrity=""
+              crossorigin="anonymous">
+    </environment>
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/jquery-validate/jquery.validate.js"></script>
+        <script src="~/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+        <script src="~/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+    </environment>
+</head>
+<body>
+
+<div class="container">
+<h4>Log in</h4>
+<hr />
+    @if(ViewBag.Isnotallowed == true)
+            {
+                <div class="text-danger">
+                    Your account has not been confirmed.
+                    <form asp-action="ConfirmEmail">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Email" />
+
+                        <p>if you didn't get verify email or deleted by mistak?</p>
+                        <div class=" form-group">
+                            <input type="submit" value="Resend verify email" class="byn btn alert-dark" />
+                        </div>
+                    </form>
+                </div>
+            }
+    else
+            {
+
+    <div class="row">
+        <div class="col-md-4">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password" class="control-label"></label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="RememberMe" /> @Html.DisplayNameFor(model => model.RememberMe)
+                    </label>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Login" class="btn btn-primary" />
+                </div>
+            </form>
+            <p><a asp-controller="AccountC" asp-action="ForgetPassword">Forget the password?</a></p>
+            <p>Click <a asp-controller="AccountC" asp-action="SignUp">here</a> to SignUp</p>
+        </div>
+        <div class="col-md-8">
+            <img class="img-fluid" src="~/Images/04086f4b8b394ba7bdaa.jpg" />
+        </div>
+    </div>
+            }
+</div>
+
+</body>
+</html>

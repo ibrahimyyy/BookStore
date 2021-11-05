@@ -1,0 +1,22 @@
+﻿@inject Microsoft.AspNetCore.Identity.SignInManager<ApplicationUser> _signinManager
+
+
+@if (_signinManager.IsSignedIn(User))
+{
+    <div class="nav-item  ">
+        <a class="nav-link dropdown-toggle text-dark"  href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+            Hello @(User.FindFirst("UserFirstName").Value + " " + User.FindFirst("UserLastName").Value)
+        </a>
+        <div class="dropdown-menu   "  aria-labelledby="navbarDropdown">
+            <a class="dropdown-item mr-lg-5" asp-action="Logout" asp-controller="AccountC">Logout</a>
+            <a class="dropdown-item mr-lg-5" asp-action="ChangePassword" asp-controller="AccountC">Change Password</a>
+        </div>
+    </div>
+}
+else
+{ 
+<div class="nav-item">
+    <a class="btn btn-outline-danger" asp-controller="AccountC" asp-action="LogIn" asp-route-returnUrl="@Context.Request.Path"> Login </a> @*@Context.Request.Path it will give the returnUrl to return to the same page after i login.*@
+    <a class="btn btn-danger" asp-controller="AccountC" asp-action="SignUp"> Register </a>
+</div>
+}
